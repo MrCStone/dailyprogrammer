@@ -1,2 +1,2 @@
 # dailyprogrammer
-Some reddit.com/r/dailyprogrammer exercises.
+Some https://reddit.com/r/dailyprogrammer exercises.
