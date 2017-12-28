@@ -6,8 +6,7 @@
 import sys
 from time import sleep
 
-# List of all notes, in American Notation.
-## TODO Add European/alternative notations.
+# List of all notes, both in European and American notation.
 notes_am = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 notes_eu = ["Do","Do#","Re","Re#","Mi","Fa","Fa#","Sol","Sol#","La","La#", "Si"]
 
