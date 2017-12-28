@@ -1,8 +1,17 @@
 #!/bin/python3
 """Returns (and prints) a given scale in the key of a given note.
    Usage: python3 scalorium.py notation mode key
-   Mode (as of now) can be either "major", "minor", "harm_minor", "melodic_minor"
-   Based on Challenge #343 [Easy] Major Scales by /u/Cosmologicon """
+   e.g.:
+          python3 scalorium.py american minor C
+          python3 scalorium.py european melodic_minor Re
+
+   Based on Challenge #343 [Easy] Major Scales by /u/Cosmologicon
+
+   Notation: american|european
+   Modes: major|minor|harm_minor|melodic_minor
+
+   Remember that the key should be in the chosen notation.
+    """
 import sys
 from time import sleep
 
