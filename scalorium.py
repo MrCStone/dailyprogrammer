@@ -1,73 +1,56 @@
 #!/bin/python3
 """Returns (and prints) a given scale in the key of a given note.
-   Usage: python3 scalorium.py mode key
+   Usage: python3 scalorium.py notation mode key
    Mode (as of now) can be either "major", "minor", "harm_minor", "melodic_minor"
    Based on Challenge #343 [Easy] Major Scales by /u/Cosmologicon """
 import sys
+from time import sleep
 
-scale = []
 # List of all notes, in American Notation.
 ## TODO Add European/alternative notations.
-notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-
+notes_am = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+notes_eu = ["Do","Do#","Re","Re#","Mi","Fa","Fa#","Sol","Sol#","La","La#", "Si"]
 
 # Scales here
-##TODO Maybe refactor into single function for all scales, and use sys.argv here instead of in main()
-# The major scale.
-def major(key):
-    for i in range(0, 12):
+def scales(notation,mode, key):
+    scale=[]
+    if notation=="american":
+        notes=notes_am
+    elif notation=="european":
+        notes=notes_eu
+
+    for i in range(0,12):
         x = notes[i]
         if x == key:
-            scale = [notes[i], notes[(i + 2) % 12], notes[(i + 4) % 12], notes[(i + 5) % 12], notes[(i + 7) % 12],
-                     notes[(i + 9) % 12], notes[(i + 11) % 12], notes[i]]
-            break
-    return scale
-
-
-# Natural minor scale
-def nat_minor(key):
-    for i in range(0, 12):
-        x = notes[i]
-        if x == key:
-            scale = [notes[i], notes[(i + 2) % 12], notes[(i + 3) % 12], notes[(i + 5) % 12], notes[(i + 7) % 12],
-                     notes[(i + 8) % 12], notes[(i + 10) % 12], notes[i]]
-            break
-    return scale
-
-
-# Harmonic minor scale
-def harm_minor(key):
-    for i in range(0, 12):
-        x = notes[i]
-        if x == key:
-            scale = [notes[i], notes[(i + 2) % 12], notes[(i + 3) % 12], notes[(i + 5) % 12], notes[(i + 7) % 12],
-                     notes[(i + 8) % 12], notes[(i + 11) % 12], notes[i]]
-            break
-    return scale
-
-
-# Melodic minor scale
-def melodic(key):
-    for i in range(0, 12):
-        x = notes[i]
-        if x == key:
-            scale = [notes[i], notes[(i + 2) % 12], notes[(i + 3) % 12], notes[(i + 5) % 12], notes[(i + 7) % 12],
-                     notes[(i + 9) % 12], notes[(i + 11) % 12], notes[i]]
-            break
+            if mode=="major":
+                scale = [notes[i], notes[(i + 2) % 12], notes[(i + 4) % 12], notes[(i + 5) % 12], notes[(i + 7) % 12],
+                         notes[(i + 9) % 12], notes[(i + 11) % 12], notes[i]]
+                break
+            elif mode=="minor":
+                scale = [notes[i], notes[(i + 2) % 12], notes[(i + 3) % 12], notes[(i + 5) % 12], notes[(i + 7) % 12],
+                         notes[(i + 8) % 12], notes[(i + 10) % 12], notes[i]]
+            elif mode=="harm_minor":
+                scale = [notes[i], notes[(i + 2) % 12], notes[(i + 3) % 12], notes[(i + 5) % 12], notes[(i + 7) % 12],
+                         notes[(i + 8) % 12], notes[(i + 11) % 12], notes[i]]
+                break
+            elif mode=="melodic_minor":
+                scale = [notes[i], notes[(i + 2) % 12], notes[(i + 3) % 12], notes[(i + 5) % 12], notes[(i + 7) % 12],
+                         notes[(i + 9) % 12], notes[(i + 11) % 12], notes[i]]
+                break
+            else:
+                print("Sorry, you have either mistyped the mode ir it is not available")
+                sys.exit()
     return scale
 
 
 # Main loop
-##TODO Refactor this, there has to be a better way to choose.
 def main():
-    if sys.argv[1] == "major":
-        return major(sys.argv[2])
-    elif sys.argv[1] == "minor":
-        return nat_minor(sys.argv[2])
-    elif sys.argv[1] == "harm_minor":
-        return harm_minor(sys.argv[2])
-    elif sys.argv[1] == "melodic_minor":
-        return melodic(sys.argv[2])
+    if len(sys.argv) != 4:
+        print("You need to pass the notation, mode and key. In that order. Exiting now...")
+        sleep(2)
+        sys.exit()
+    else:
+        print(scales(sys.argv[1], sys.argv[2],sys.argv[3]))
 
-
-print(main())
+if __name__=="__main__":
+    main()
