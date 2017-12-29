@@ -11,13 +11,28 @@
    Modes: major|minor|harm_minor|melodic_minor
 
    Remember that the key should be in the chosen notation.
+   ##TODO Update documentation to midi
+   ##TODO Add more scales
+   ##TODO Sanitize input better.
+   ##TODO Fix make_wav thing.
+   ##TODO Add FUCKING COLOURS. :) :) :) \033... [00...;...31m...LOVE THEM COLOURS ...\033...[0m
+   ##TODO Figure a way to take that horrible pysynth message away.
     """
 import sys
+import pysynth
+import simpleaudio as sa
+
 from time import sleep
+
+def player():
+    wave_obj = sa.WaveObject.from_wave_file("scale.wav")
+    play_obj = wave_obj.play()
+    play_obj.wait_done()
 
 # List of all notes, both in European and American notation.
 notes_am = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 notes_eu = ["Do","Do#","Re","Re#","Mi","Fa","Fa#","Sol","Sol#","La","La#", "Si"]
+midi = {"C":("c", 4), "C#": ("c#", 4), "D":("d", 4), "D#":("d#", 4), "E":("e",4), "F":("f", 4), "F#":("f#",4), "G":("g",4), "G#":("g#",4), "A":("a", 4), "A#":("a#", 4), "B":("b", 4)}
 
 # Scales here
 def scales(notation,mode, key):
@@ -48,6 +63,11 @@ def scales(notation,mode, key):
             else:
                 print("Sorry, you have either mistyped the mode ir it is not available")
                 sys.exit()
+    print(scale)
+    wav = []
+    for note in scale:
+        wav.append(midi[note])
+    pysynth.make_wav(tuple(wav), fn="scale.wav")
     return scale
 
 
@@ -58,7 +78,8 @@ def main():
         sleep(2)
         sys.exit()
     else:
-        print(scales(sys.argv[1], sys.argv[2],sys.argv[3]))
+        scales(sys.argv[1], sys.argv[2],sys.argv[3])
+        player()
 
 if __name__=="__main__":
     main()
