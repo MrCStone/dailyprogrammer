@@ -17,6 +17,7 @@
    ##TODO Fix make_wav thing.
    ##TODO Add FUCKING COLOURS. :) :) :) \033... [00...;...31m...LOVE THEM COLOURS ...\033...[0m
    ##TODO Figure a way to take that horrible pysynth message away.
+   ##TODO Do not forget next time
     """
 import sys
 import pysynth
